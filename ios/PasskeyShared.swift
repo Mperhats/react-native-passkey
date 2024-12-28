@@ -28,19 +28,21 @@ extension Data {
 */
 @available(iOS 15.0, *)
 internal enum AuthenticatorTransport: String, Codable {
-    case ble
-    case hybrid
-    case nfc
-    case usb
+    case usb = "usb"
+    case nfc = "nfc"
+    case ble = "ble"
+    case smartCard = "smart-card"
+    case hybrid = "hybrid"
+    case internalTransport = "internal"
   
     func appleise() -> ASAuthorizationSecurityKeyPublicKeyCredentialDescriptor.Transport? {
         switch self {
-        case .ble:
-            return ASAuthorizationSecurityKeyPublicKeyCredentialDescriptor.Transport.bluetooth
-        case .nfc:
-            return ASAuthorizationSecurityKeyPublicKeyCredentialDescriptor.Transport.nfc
         case .usb:
             return ASAuthorizationSecurityKeyPublicKeyCredentialDescriptor.Transport.usb
+        case .nfc:
+            return ASAuthorizationSecurityKeyPublicKeyCredentialDescriptor.Transport.nfc
+        case .ble:
+            return ASAuthorizationSecurityKeyPublicKeyCredentialDescriptor.Transport.bluetooth
         default:
             return nil
         }
@@ -356,6 +358,20 @@ internal struct AuthenticationExtensionsLargeBlobInputs: Decodable {
 */
 internal struct AuthenticationExtensionsClientInputs: Decodable {
   var largeBlob: AuthenticationExtensionsLargeBlobInputs?
+  var prf: AuthenticationExtensionsPRFInputs?
+}
+
+/**
+    Specification reference: https://w3c.github.io/webauthn/#prf-extension
+*/
+internal struct AuthenticationExtensionsPRFInputs: Decodable {
+  var eval: AuthenticationExtensionsPRFValues?
+  var evalByCredential: [String: AuthenticationExtensionsPRFValues]?
+}
+
+internal struct AuthenticationExtensionsPRFValues: Decodable {
+  var first: [UInt8]
+  var second: [UInt8]?
 }
 
 // ! There is only one webauthn extension currently supported on iOS as of iOS 17.0:

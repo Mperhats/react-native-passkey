@@ -1,12 +1,12 @@
+import ExpoPasskeysModule from './ExpoPasskeysModule'
 import { handleNativeError, NotSupportedError } from './PasskeyError';
 import { Platform } from 'react-native';
 import type {
   PasskeyCreateRequest,
   PasskeyCreateResult,
-  PasskeyGetRequest,
-  PasskeyGetResult,
+  PasskeySignRequest,
+  PasskeySignResult,
 } from './PasskeyTypes';
-import { NativePasskey } from './NativePasskey';
 
 export class Passkey {
   /**
@@ -25,11 +25,11 @@ export class Passkey {
     }
 
     try {
-      const response: PasskeyCreateResult = (await NativePasskey.create(
+      const response: PasskeyCreateResult = await ExpoPasskeysModule.create(
         JSON.stringify(request),
         false, // forcePlatformKey
         false // forceSecurityKey
-      )) as PasskeyCreateResult;
+      ) as PasskeyCreateResult
 
       return response;
     } catch (error) {
@@ -54,11 +54,11 @@ export class Passkey {
     }
 
     try {
-      const response: PasskeyCreateResult = (await NativePasskey.create(
+      const response: PasskeyCreateResult = await ExpoPasskeysModule.create(
         JSON.stringify(request),
         true, // forcePlatformKey
         false // forceSecurityKey
-      )) as PasskeyCreateResult;
+      ) as PasskeyCreateResult;
 
       return response;
     } catch (error) {
@@ -83,11 +83,11 @@ export class Passkey {
     }
 
     try {
-      const response: PasskeyCreateResult = (await NativePasskey.create(
+      const response: PasskeyCreateResult = await ExpoPasskeysModule.create(
         JSON.stringify(request),
         false, // forcePlatformKey
         true // forceSecurityKey
-      )) as PasskeyCreateResult;
+      ) as PasskeyCreateResult;
 
       return response;
     } catch (error) {
@@ -104,18 +104,18 @@ export class Passkey {
    * @throws
    */
   public static async get(
-    request: PasskeyGetRequest
-  ): Promise<PasskeyGetResult> {
+    request: PasskeySignRequest
+  ): Promise<PasskeySignResult> {
     if (!Passkey.isSupported()) {
       throw NotSupportedError;
     }
 
     try {
-      const response: PasskeyGetResult = (await NativePasskey.get(
+      const response: PasskeySignResult = await ExpoPasskeysModule.sign(
         JSON.stringify(request),
         false, // forcePlatformKey
         false // forceSecurityKey
-      )) as PasskeyGetResult;
+      ) as PasskeySignResult;
 
       return response;
     } catch (error) {
@@ -133,18 +133,18 @@ export class Passkey {
    * @throws
    */
   public static async getPlatformKey(
-    request: PasskeyGetRequest
-  ): Promise<PasskeyGetResult> {
+    request: PasskeySignRequest
+  ): Promise<PasskeySignResult> {
     if (!Passkey.isSupported()) {
       throw NotSupportedError;
     }
 
     try {
-      const response: PasskeyGetResult = (await NativePasskey.get(
+      const response: PasskeySignResult = await ExpoPasskeysModule.sign(
         JSON.stringify(request),
         true, // forcePlatformKey
         false // forceSecurityKey
-      )) as PasskeyGetResult;
+      ) as PasskeySignResult;
 
       return response;
     } catch (error) {
@@ -162,18 +162,18 @@ export class Passkey {
    * @throws
    */
   public static async getSecurityKey(
-    request: PasskeyGetRequest
-  ): Promise<PasskeyGetResult> {
+    request: PasskeySignRequest
+  ): Promise<PasskeySignResult> {
     if (!Passkey.isSupported()) {
       throw NotSupportedError;
     }
 
     try {
-      const response: PasskeyGetResult = (await NativePasskey.get(
+      const response: PasskeySignResult = await ExpoPasskeysModule.sign(
         JSON.stringify(request),
         false, // forcePlatformKey
         true // forceSecurityKey
-      )) as PasskeyGetResult;
+      ) as PasskeySignResult;
 
       return response;
     } catch (error) {

@@ -6,7 +6,7 @@
     Specification reference: https://w3c.github.io/webauthn/#typedefdef-publickeycredentialjson
 */
 @available(iOS 15.0, *)
-typealias PublicKeyCredentialJSON = Either<RNPasskeyCreateResponseJSON, RNPasskeyGetResponseJSON>
+typealias PublicKeyCredentialJSON = Either<RNPasskeyCreateResponseJSON, RNPasskeySignResponseJSON>
 
 /**
     Specification reference: https://w3c.github.io/webauthn/#dictdef-registrationresponsejson
@@ -51,7 +51,8 @@ internal struct AuthenticatorAttestationResponseJSON: Encodable {
 /**
     Specification reference: https://w3c.github.io/webauthn/#dictdef-authenticationresponsejson
 */
-internal struct RNPasskeyGetResponseJSON: Encodable {
+@available(iOS 15.0, *)
+internal struct RNPasskeySignResponseJSON: Encodable {
   
   var type: PublicKeyCredentialType = .publicKey
   
@@ -89,6 +90,7 @@ internal struct AuthenticatorAssertionResponseJSON: Encodable {
 */
 internal struct  AuthenticationExtensionsClientOutputsJSON: Encodable {
   var largeBlob: AuthenticationExtensionsLargeBlobOutputsJSON?
+  var prf: AuthenticationExtensionsPRFOutputsJSON?
 }
 
 /**
@@ -103,4 +105,9 @@ internal struct AuthenticationExtensionsLargeBlobOutputsJSON: Encodable {
   var blob: [UInt]?;
   
   var written: Bool?;
+}
+
+internal struct AuthenticationExtensionsPRFOutputsJSON: Encodable {
+  var enabled: Bool?
+  var results: AuthenticationExtensionsPRFValues?
 }

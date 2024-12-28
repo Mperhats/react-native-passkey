@@ -3,8 +3,8 @@ import type { PasskeyError } from './PasskeyError';
 import type {
   PasskeyCreateRequest,
   PasskeyCreateResult,
-  PasskeyGetRequest,
-  PasskeyGetResult,
+  PasskeySignRequest,
+  PasskeySignResult,
 } from './PasskeyTypes';
 
 export {
@@ -12,6 +12,6 @@ export {
   PasskeyError,
   PasskeyCreateRequest,
   PasskeyCreateResult,
-  PasskeyGetRequest,
-  PasskeyGetResult,
+  PasskeySignRequest,
+  PasskeySignResult,
 };

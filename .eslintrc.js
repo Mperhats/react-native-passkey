@@ -3,4 +3,4 @@ module.exports = {
   rules: {
     'no-bitwise': 0,
   },
-};
+}

@@ -67,7 +67,7 @@ export interface PasskeyCreateResult {
  * The FIDO2 Assertion Request
  * https://www.w3.org/TR/webauthn-3/#dictionary-assertion-options
  */
-export interface PasskeyGetRequest {
+export interface PasskeySignRequest {
   challenge: string;
   rpId: string;
   timeout?: number;
@@ -85,7 +85,7 @@ export interface PasskeyGetRequest {
  * The FIDO2 Assertion Result
  * https://www.w3.org/TR/webauthn-3/#iface-pkcredential
  */
-export interface PasskeyGetResult {
+export interface PasskeySignResult {
   id: string;
   rawId: string;
   type?: string;
