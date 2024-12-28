@@ -62,7 +62,7 @@ class ExpoPasskeysModule : Module() {
             }
         }
 
-        AsyncFunction("sign") { requestJson: String, promise: Promise ->
+        AsyncFunction("get") { requestJson: String, promise: Promise ->
             val credentialManager =
                 CredentialManager.create(appContext.reactContext?.applicationContext!!)
             val getCredentialRequest =

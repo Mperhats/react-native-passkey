@@ -4,9 +4,9 @@
   "compilerOptions": {
     "outDir": "./build",
     "rootDir": "./src",
-    "types": ["node"],
+    "types": ["node", "jest"],
+    "resolveJsonModule": true,
     "lib": ["ES2017", "DOM"]
   },
   "include": ["./src"],
-  "exclude": ["**/__mocks__/*", "**/__tests__/*", "**/__stories__/*"]
 }

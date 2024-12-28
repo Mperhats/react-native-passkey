@@ -4,8 +4,8 @@ import { Platform } from 'react-native';
 import type {
   PasskeyCreateRequest,
   PasskeyCreateResult,
-  PasskeySignRequest,
-  PasskeySignResult,
+  PasskeyGetRequest,
+  PasskeyGetResult,
 } from './PasskeyTypes';
 
 export class Passkey {
@@ -104,18 +104,18 @@ export class Passkey {
    * @throws
    */
   public static async get(
-    request: PasskeySignRequest
-  ): Promise<PasskeySignResult> {
+    request: PasskeyGetRequest
+  ): Promise<PasskeyGetResult> {
     if (!Passkey.isSupported()) {
       throw NotSupportedError;
     }
 
     try {
-      const response: PasskeySignResult = await ExpoPasskeysModule.sign(
+      const response: PasskeyGetResult = await ExpoPasskeysModule.get(
         JSON.stringify(request),
         false, // forcePlatformKey
         false // forceSecurityKey
-      ) as PasskeySignResult;
+      ) as PasskeyGetResult;
 
       return response;
     } catch (error) {
@@ -133,18 +133,18 @@ export class Passkey {
    * @throws
    */
   public static async getPlatformKey(
-    request: PasskeySignRequest
-  ): Promise<PasskeySignResult> {
+    request: PasskeyGetRequest
+  ): Promise<PasskeyGetResult> {
     if (!Passkey.isSupported()) {
       throw NotSupportedError;
     }
 
     try {
-      const response: PasskeySignResult = await ExpoPasskeysModule.sign(
+      const response: PasskeyGetResult = await ExpoPasskeysModule.get(
         JSON.stringify(request),
         true, // forcePlatformKey
         false // forceSecurityKey
-      ) as PasskeySignResult;
+      ) as PasskeyGetResult;
 
       return response;
     } catch (error) {
@@ -162,18 +162,18 @@ export class Passkey {
    * @throws
    */
   public static async getSecurityKey(
-    request: PasskeySignRequest
-  ): Promise<PasskeySignResult> {
+    request: PasskeyGetRequest
+  ): Promise<PasskeyGetResult> {
     if (!Passkey.isSupported()) {
       throw NotSupportedError;
     }
 
     try {
-      const response: PasskeySignResult = await ExpoPasskeysModule.sign(
+      const response: PasskeyGetResult = await ExpoPasskeysModule.get(
         JSON.stringify(request),
         false, // forcePlatformKey
         true // forceSecurityKey
-      ) as PasskeySignResult;
+      ) as PasskeyGetResult;
 
       return response;
     } catch (error) {

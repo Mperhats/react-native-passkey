@@ -125,7 +125,7 @@ public class PasskeyManager {
         }
     }
 
-    public func signWithKey(request: String, useSecurityKey: Bool, promise: Promise) {
+    public func getKey(request: String, useSecurityKey: Bool, promise: Promise) {
         do {
             // Decode request object
             let requestData: Data = request.data(using: .utf8)!
